@@ -37,6 +37,25 @@ export interface HTTPValidationError {
 /**
  * 
  * @export
+ * @interface Item
+ */
+export interface Item {
+    /**
+     * 
+     * @type {number}
+     * @memberof Item
+     */
+    id: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Item
+     */
+    description?: string;
+}
+/**
+ * 
+ * @export
  * @interface ValidationError
  */
 export interface ValidationError {
@@ -69,16 +88,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Read Item
-         * @param {number} itemId 
-         * @param {string} [q] 
+         * @param {number} id 
+         * @param {string} [description] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readItem: async (itemId: number, q?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'itemId' is not null or undefined
-            assertParamExists('readItem', 'itemId', itemId)
-            const localVarPath = `/items/{item_id}`
-                .replace(`{${"item_id"}}`, encodeURIComponent(String(itemId)));
+        readItem: async (id: number, description?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('readItem', 'id', id)
+            const localVarPath = `/items/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -90,8 +109,8 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (q !== undefined) {
-                localVarQueryParameter['q'] = q;
+            if (description !== undefined) {
+                localVarQueryParameter['description'] = description;
             }
 
 
@@ -148,13 +167,13 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Read Item
-         * @param {number} itemId 
-         * @param {string} [q] 
+         * @param {number} id 
+         * @param {string} [description] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async readItem(itemId: number, q?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.readItem(itemId, q, options);
+        async readItem(id: number, description?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Item>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.readItem(id, description, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -180,13 +199,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary Read Item
-         * @param {number} itemId 
-         * @param {string} [q] 
+         * @param {number} id 
+         * @param {string} [description] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readItem(itemId: number, q?: string, options?: any): AxiosPromise<any> {
-            return localVarFp.readItem(itemId, q, options).then((request) => request(axios, basePath));
+        readItem(id: number, description?: string, options?: any): AxiosPromise<Item> {
+            return localVarFp.readItem(id, description, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -210,14 +229,14 @@ export class DefaultApi extends BaseAPI {
     /**
      * 
      * @summary Read Item
-     * @param {number} itemId 
-     * @param {string} [q] 
+     * @param {number} id 
+     * @param {string} [description] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public readItem(itemId: number, q?: string, options?: any) {
-        return DefaultApiFp(this.configuration).readItem(itemId, q, options).then((request) => request(this.axios, this.basePath));
+    public readItem(id: number, description?: string, options?: any) {
+        return DefaultApiFp(this.configuration).readItem(id, description, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

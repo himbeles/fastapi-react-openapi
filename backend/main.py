@@ -3,20 +3,41 @@ from typing import Optional
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 import uvicorn
+from pydantic import BaseModel
+from starlette.middleware.cors import CORSMiddleware
+
 
 import json
 
+class Item(BaseModel):
+    id: int
+    description: Optional[str] = None
+
+
 app = FastAPI()
+
+
+# TODO: This is for development. Remove it for production.
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
-
+@app.get("/items/{id}", response_model=Item)
+async def read_item(id: int, description: Optional[str] = None):
+    return Item(id=id, description=description)
 
 
 # generate OpenAPI JSON file

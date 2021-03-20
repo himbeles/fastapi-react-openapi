@@ -1,5 +1,5 @@
 {
-  "name": "gims-mcu",
+  "name": "fastapi-react-openapi",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "compile-api": "npx @openapitools/openapi-generator-cli generate -i ../backend/openapi.json -g typescript-axios -o ./src/api"
+    "compile-api": "npx @openapitools/openapi-generator-cli generate -i ../openapi.json -g typescript-axios --additional-properties=supportsES6=true -o ./src/api"
   },
   "eslintConfig": {
     "extends": [
