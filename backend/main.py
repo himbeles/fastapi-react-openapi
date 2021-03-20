@@ -2,6 +2,7 @@ from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
+import uvicorn
 
 import json
 
@@ -34,3 +35,8 @@ def use_route_names_as_operation_ids(app: FastAPI) -> None:
 use_route_names_as_operation_ids(app)
 with open("./openapi.json", "w") as fp:
     json.dump(app.openapi(), fp=fp)
+
+
+def start():
+    print("Hello World")
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True, workers=1)
