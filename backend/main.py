@@ -37,6 +37,5 @@ with open("./openapi.json", "w") as fp:
     json.dump(app.openapi(), fp=fp)
 
 
-def start():
-    print("Hello World")
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True, workers=1)
+def main():
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=True)

@@ -9,6 +9,10 @@ description = ""
 authors = ["Luis R. <lri@me.com>"]
 license = "MIT"
 
+packages = [
+    { include = "backend" },
+]
+
 [tool.poetry.dependencies]
 python = "^3.9"
 fastapi = "^0.63"
@@ -17,4 +21,4 @@ uvicorn = "^0.13"
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts]
-start = "backend.main:start"
+start = "backend.main:main"

@@ -21,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "compile-api": "npx @openapitools/openapi-generator-cli generate -i ../openapi.json -g typescript-axios -o ./src/api"
+    "compile-api": "npx @openapitools/openapi-generator-cli generate -i ../backend/openapi.json -g typescript-axios -o ./src/api"
   },
   "eslintConfig": {
     "extends": [
