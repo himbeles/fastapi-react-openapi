@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.routing import APIRoute
 import uvicorn
 from pydantic import BaseModel
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 
 import json
@@ -40,9 +40,9 @@ async def read_item(id: int, description: Optional[str] = None):
     return Item(id=id, description=description)
 
 
-# generate OpenAPI JSON file
+# generate OpenAPI JSON file for typescript interface generator
 
-def use_route_names_as_operation_ids(app: FastAPI) -> None:
+def _use_route_names_as_operation_ids(app: FastAPI) -> None:
     """
     Simplify operation IDs so that generated API clients have simpler function
     names.
@@ -53,7 +53,7 @@ def use_route_names_as_operation_ids(app: FastAPI) -> None:
             route.operation_id = route.name
 
 
-use_route_names_as_operation_ids(app)
+_use_route_names_as_operation_ids(app)
 with open("./openapi.json", "w") as fp:
     json.dump(app.openapi(), fp=fp)
 
